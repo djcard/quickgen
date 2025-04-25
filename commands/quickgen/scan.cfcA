@@ -1,0 +1,19 @@
+component {
+    property name="services" inject="services@quickGen";
+    
+
+    function run(boolean cfconfig=1, boolean commandbox=1, boolean cfmigrations=1){
+        print.line("Scanning for Datasource Configurations");
+        if(arguments.cfconfig){
+            if( fileExists(getcwd() & ".cfconfig.json")){
+                print.line("Scanning .cfconfig.json");
+                var configData = fileRead(getcwd() & ".cfconfig.json");
+                var configData = deserializeJSON(configData);
+                
+            } else {
+                print.line("No .cfconfig.json file found");
+            }
+            
+        }
+    }
+}

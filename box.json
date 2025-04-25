@@ -1,6 +1,6 @@
 {
     "author":"Dan Card",
-    "bugs":"https://github.com/djcard/schemaCompare/issues",
+    "bugs":"https://github.com/djcard/quickgen/issues",
     "changelog":"",
     "contributors":[],
     "dependencies":{
@@ -10,8 +10,8 @@
     "devDependencies":{
         "testbox":"be"
     },
-    "documentation":"https://github.com/djcard/schemaCompare",
-    "homepage":"https://github.com/djcard/schemaCompare",
+    "documentation":"https://github.com/djcard/quickgen",
+    "homepage":"https://github.com/djcard/quickgen",
     "ignore":[
         "**/.*",
         "/test/",
@@ -31,19 +31,19 @@
         }
     ],
     "location":"ForgeboxStorage",
-    "name":"Schema Compare",
+    "name":"Quick Gen",
     "private":false,
-    "projectURL":"https://github.com/djcard/schemaCompare",
+    "projectURL":"https://github.com/djcard/quickgen",
     "reinitWatchDelay":500,
     "reinitWatchDirectory":"",
     "reinitWatchPaths":"",
     "repository":{
         "type":"git",
-        "URL":"https://github.com/djcard/schemaCompare"
+        "URL":"https://github.com/djcard/quickgen"
     },
     "scripts":{},
-    "shortDescription":"A tool to compare schemas and create scema migrations based on those changes.",
-    "slug":"commandbox-schemacompare",
+    "shortDescription":"A tool to create quick entities from existing tables",
+    "slug":"commandbox-quickgen",
     "testbox":{
         "bundles":"",
         "directory":"tests.specs",
@@ -65,5 +65,5 @@
         "watchPaths":"**.cfc"
     },
     "type":"commandbox-modules",
-    "version":"0.0.2"
+    "version":"0.0.1"
 }
