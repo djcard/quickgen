@@ -1,19 +1,53 @@
 component {
     property name="services" inject="services@quickGen";
-    
+    property name="common" inject="common@quickgen";
 
     function run(boolean cfconfig=1, boolean commandbox=1, boolean cfmigrations=1){
         print.line("Scanning for Datasource Configurations");
+        var allDsources = [];
+        if(Arguments.commandBox){
+            if( common.appSettings().keyExists("datasources") ){
+                common.appSettings().datasources.each((item)=>{
+                    allDsources.append({name:item,source:"commandBox"})
+                })
+            } else {
+
+            }
+        }
         if(arguments.cfconfig){
             if( fileExists(getcwd() & ".cfconfig.json")){
                 print.line("Scanning .cfconfig.json");
                 var configData = fileRead(getcwd() & ".cfconfig.json");
                 var configData = deserializeJSON(configData);
-                
+                if(configData.keyExists("datasources")){
+                    configData.datasources.each((item)=>{
+                        allDsources.append({name:item,source:"cfConfig"})
+                    })
+                }
             } else {
                 print.line("No .cfconfig.json file found");
             }
             
         }
+
+        if(arguments.cfmigrations){
+            if( fileExists(getcwd() & ".cfconfig.json")){
+                print.line("Scanning .cfmigrations.json");
+                var configData = fileRead(getcwd() & ".cfmigrations.json");
+                var configData = deserializeJSON(configData);
+                configData.each((item)=>{
+                    if(configData[item].keyExists("properties") && configData[item].properties.keyExists("connectionInfo")){
+                        allDsources.append({name:item,source:"migrations"})
+                    }
+                })
+
+            } else {
+                print.line("No .cfmigrations.json file found");
+            }
+        }
+
+        allDsources.each((item)=>{
+            print.line(item.name & ":" & item.source);
+        })
     }
 }

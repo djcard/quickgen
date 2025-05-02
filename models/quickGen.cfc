@@ -1,6 +1,6 @@
 component {
     property name="qb" inject="provider:QueryBuilder@qb";
-    property name="support" inject="support@schemaCompare"; 
+    property name="support" inject="support@quickgen"; 
     
     function obtainTables(dbname="CNEAssessment"){
         cfdbinfo(name="allTables",datasource="cne",dbname=dbname,type="tables");
@@ -22,7 +22,7 @@ component {
     }
 
     function generatePropertyString(name,type){
-        return 'property name="#arguments.name#";';
+        return '#chr(9)#property name="#arguments.name#";#chr(10)#';
     }
 
     function isolatePrimaryKeys( data ){
@@ -55,7 +55,7 @@ component {
     
 
     function entityTemplate(required string tablename, required array props=[], required array primarykeys=[], memento=[],hint=""){
-        var retme = ['component table="#tablename#" extends="quick.models.BaseEntity" accessors="true" {'];
+        var retme = ['component table="#tablename#" extends="quick.models.BaseEntity" accessors="true" {#chr(10)#'];
         if(props.len()){
             retme.append(arguments.props.tolist(""),true);
         }
@@ -65,8 +65,12 @@ component {
         }
         if(memento.len()){
             retme.append("");
-            retme.append('#chr(9)#this.memento={defaultIncludes:[#memento.tolist(',')#]}')
+            retme.append('#chr(9)#this.memento={#chr(10)##chr(9)##chr(9)#defaultIncludes:[#chr(10)##chr(9)##chr(9)##chr(9)##memento.tolist(',#chr(10)##chr(9)##chr(9)##chr(9)#')##chr(10)##chr(9)##chr(9)#]#chr(10)##chr(9)#}')
         }
+        retme.append(chr(10));
+        retme.append("#chr(9)#function preInsert(){#chr(10)##chr(10)##chr(9)#}");
+        retme.append(chr(10));
+        retme.append("#chr(9)#function preUpdate(){#chr(10)##chr(10)##chr(9)#}");
         retme.append("}")
         return retme.tolist(chr(10))
     }

@@ -10,7 +10,7 @@
 component {
 
     property name="settings" inject="commandbox:configsettings";
-    property name="support" inject="support@schemaCompare";
+    property name="support" inject="support@quickgen";
 
     function run(boolean force = false) {
         print.line('This command will help you set up a datasource to use with your project');
@@ -60,7 +60,6 @@ component {
             .run();
         print.line('Datasource made').toConsole();
         if (ds.saver == 'y') {
-            // command('config set modules.schemaCompare.datasources[#ds.datasource#]={}').run();
             command('cbdatasource publishToEnv').params(name = ds.datasource, type = ds.type).run();
             print.line('Saved to .envFile');
         }
